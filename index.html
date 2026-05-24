@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tracing the Void</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/2.0.0/p5.js"></script>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute;" xmlns="http://www.w3.org/2000/svg">
+  <filter id="chap4-water-filter" x="-25%" y="-25%" width="150%" height="150%">
+    <feTurbulence
+      type="fractalNoise"
+      baseFrequency="0.025 0.055"
+      numOctaves="3"
+      seed="8"
+      result="turbulence">
+      <animate
+        attributeName="baseFrequency"
+        dur="30s"
+        keyTimes="0;0.5;1"
+        values="0.025 0.05; 0.06 0.09; 0.025 0.05"
+        repeatCount="indefinite" />
+    </feTurbulence>
+
+    <feDisplacementMap
+      in="SourceGraphic"
+      in2="turbulence"
+      scale="34"
+      xChannelSelector="R"
+      yChannelSelector="G" />
+  </filter>
+</svg>
+  
+  <div id="tv-container">
+    <div class="pola-wrapper" id="pola-wrapper">
+      <img class="pola-part pola-shadow" src="image/home/shadow.png">
+      
+      <img class="pola-part pola-item" id="p1" src="image/home/pola1.png">
+      <img class="pola-part pola-item" id="p2" src="image/home/pola2.png">
+      <img class="pola-part pola-item" id="p3" src="image/home/pola3.png">
+      <img class="pola-part pola-item" id="p4" src="image/home/pola4.png">
+      <img class="pola-part pola-item" id="p5" src="image/home/pola5.png">
+      <img class="pola-part pola-item" id="p6" src="image/home/pola6.png">
+      <img class="pola-part pola-item" id="p7" src="image/home/pola7.png">
+      <img class="pola-part pola-item" id="p8" src="image/home/pola8.png">
+      <img class="pola-part pola-item" id="p9" src="image/home/pola9.png">
+      <img class="pola-part pola-item" id="p10" src="image/home/pola10.png">
+      <img class="pola-part pola-item" id="p11" src="image/home/pola11.png">
+      <img class="pola-part pola-item" id="p12" src="image/home/pola12.png">
+
+      <img class="pola-full" src="image/home/polafull.png">
+    </div>
+
+    <div class="paper-wrapper" id="paper-wrapper">
+      <img class="family-img" id="img-dad" src="image/chap1/dad.png" alt="Dad">
+      <img class="family-img" id="img-mom" src="image/chap1/mom.png" alt="Mom">
+      <img class="family-img" id="img-girl" src="image/chap1/girl.png" alt="Girl">
+      <img class="family-img" id="img-sis" src="image/chap1/sis.png" alt="Sis">
+    </div>
+
+    <img class="tv-frame" src="image/home/tv-frame.png" alt="TV Frame">
+  </div>
+
+  <!-- ===============================
+     PROJECT AUDIO
+     =============================== -->
+<audio id="snd-tape" src="audio/tape.mp3" preload="auto" autoplay></audio> 
+
+<audio id="snd-bgmusic" src="audio/bgmusic.mp3" preload="auto" loop></audio>
+<audio id="snd-buzz" src="audio/buzz.mp3" preload="auto" loop></audio>
+
+<audio id="snd-drawing" src="audio/drawing.mp3" preload="auto"></audio>
+
+<audio id="snd-tree-a" src="audio/treea.mp3" preload="auto"></audio>
+<audio id="snd-tree-b" src="audio/treeb.mp3" preload="auto"></audio>
+
+<audio id="snd-error" src="audio/error.mp3" preload="auto" loop></audio>
+<audio id="snd-breaking" src="audio/breaking.mp3" preload="auto"></audio>
+
+<audio id="snd-rain" src="audio/rain.mp3" preload="auto" loop></audio>
+
+<audio id="snd-transition" src="audio/transitionsound.mp3" preload="auto"></audio>
+<audio id="snd-success" src="audio/sucess.mp3" preload="auto"></audio>
+<audio id="snd-drawing-shake" src="audio/drawingshake.mp3" preload="auto" loop></audio>
+<audio id="snd-error-2" src="audio/error2.mp3" preload="auto" loop></audio>
+<audio id="snd-crumble-a" src="audio/crumblea.mp3" preload="auto"></audio>
+<audio id="snd-crumble-b" src="audio/crumbleb.mp3" preload="auto"></audio>
+<audio id="snd-space" src="audio/space.mp3" preload="auto"></audio>
+  <script src="sketch.js"></script>
+</body>
+</html>

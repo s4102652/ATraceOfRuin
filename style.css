@@ -1,0 +1,200 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  width: 100vw; height: 100vh;
+  background-color: #08080a;
+  display: flex; justify-content: center; align-items: center;
+  overflow: hidden;
+}
+
+#tv-container {
+  position: relative;
+  width: 800px; height: 600px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 255, 255, 0.03);
+  
+  /* BACKGROUND CHO INTRO */
+  background-image: url('image/home/bg.png');
+  background-size: 800px 600px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* CONTAINER CHO CỤM POLAROID */
+.pola-wrapper {
+  position: absolute;
+  top: 70%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 430px; 
+  height: 340px;
+  z-index: 5; 
+  cursor: pointer;
+  animation: subtlePolaGlitch 3.5s infinite;
+}
+
+.pola-full {
+  position: absolute;
+  width: 100%; height: 100%;
+  z-index: 20;
+  transition: opacity 0.4s ease;
+}
+
+.pola-wrapper:hover .pola-full { opacity: 0; }
+
+.pola-part {
+  position: absolute;
+  width: 100%; height: 100%;
+  top: 0; left: 0;
+  opacity: 0; 
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.pola-shadow { z-index: 1; }
+.pola-wrapper:hover .pola-part { opacity: 1; }
+
+#p1  { z-index: 2; }  .pola-wrapper:hover #p1  { transform: translate(-17px, -20px) rotate(-2deg); }
+#p2  { z-index: 3; }  .pola-wrapper:hover #p2  { transform: translate(-11px) rotate(1deg); }
+#p3  { z-index: 4; }  .pola-wrapper:hover #p3  { transform: translate(13px, 5px) rotate(-3deg); }
+#p4  { z-index: 5; }  .pola-wrapper:hover #p4  { transform: translate(8px, 2px) rotate(2deg); }
+#p5  { z-index: 6; }  .pola-wrapper:hover #p5  { transform: translate(15px, -5px) rotate(-1deg); }
+#p6  { z-index: 7; }  .pola-wrapper:hover #p6  { transform: translate(-12px, 8px) rotate(3deg); }
+#p7  { z-index: 8; }  .pola-wrapper:hover #p7  { transform: translate(9px, -9px) rotate(-2deg); }
+#p8  { z-index: 9; }  .pola-wrapper:hover #p8  { transform: translate(-15px, -10px) rotate(1deg); }
+#p9  { z-index: 10; } .pola-wrapper:hover #p9  { transform: translate(-3px, 15px) rotate(4deg); }
+#p10 { z-index: 11; } .pola-wrapper:hover #p10 { transform: translate(-10px, 2px) rotate(-2deg); }
+#p11 { z-index: 12; } .pola-wrapper:hover #p11 { transform: translate(-12px, 10px) rotate(1deg); }
+#p12 { z-index: 13; } .pola-wrapper:hover #p12 { transform: translate(-9px, -15px) rotate(-3deg); }
+
+.tv-frame {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 10; pointer-events: none;
+}
+
+canvas {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* LỚP PHỦ SỌC VHS ĐÈ LÊN TRÊN POLAROID */
+#tv-container::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.14) 2px,
+    rgba(0, 0, 0, 0.14) 4px
+  );
+  z-index: 8; 
+  pointer-events: none; 
+}
+
+@keyframes subtlePolaGlitch {
+  0%, 94%, 100% { filter: drop-shadow(0 0 0 transparent) contrast(1) brightness(1); }
+  95% { filter: drop-shadow(2px 0 0 rgba(255, 0, 0, 0.4)) drop-shadow(-2px 0 0 rgba(0, 255, 255, 0.4)) contrast(1.1) brightness(1.1); }
+  97% { filter: drop-shadow(-2px 1px 0 rgba(255, 0, 0, 0.3)) drop-shadow(2px -1px 0 rgba(0, 255, 0, 0.3)) contrast(0.9) brightness(0.9); }
+  99% { filter: drop-shadow(0 0 0 transparent) contrast(1.05) brightness(1.05); }
+}
+
+/* ==========================================
+   PAPER WRAPPER & GRID CHO CHƯƠNG 1
+   ========================================== */
+.paper-wrapper {
+  position: absolute;
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;  
+  height: 450px; 
+  background-image: url('image/chap1/paper.png');
+  background-size: 100% 100%; 
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0; 
+  display: none; 
+  filter: drop-shadow(0 0 25px rgba(0, 0, 0, 0.686));  
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr; /* Ép cứng 1 hàng ngang */
+  padding: 30px; 
+  align-items: center;
+  justify-items: center;
+}
+
+.family-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
+  opacity: 0.6; /* Sáng vừa đủ để trace */
+  grid-row: 1; /* CỰC QUAN TRỌNG: Khóa cứng ở hàng 1 chống văng hình */
+}
+
+#img-sis {
+  opacity: 0; /* Tàng hình lúc đầu */
+  grid-column: 4; /* Ép cứng ngoài cùng bên phải */
+  grid-row: 1; 
+}
+
+/* ==========================================
+   CHAPTER 4 - WATER MEMORY BACKGROUND
+   ========================================== */
+
+#chap4-water-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 800px;
+  height: 600px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+
+  /* Chỉ để background thôi */
+  background-image: url('image/chap4/bg.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#chap4-girl-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 800px;
+  height: 600px;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+
+  background-image: url('image/chap4/girl.png');
+  background-size: 100% 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* MASK SÓNG: giữ nguyên vị trí, chỉ bị filter làm méo */
+#chap4-water-layer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image: url('image/chap4/wave.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  opacity: 0.5;
+  mix-blend-mode: screen;
+
+  /* Chỉ wave.png nhận water filter */
+  filter: url(#chap4-water-filter);
+
+  /* KHÔNG animate transform nữa */
+  transform: none;
+}
