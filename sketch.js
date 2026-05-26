@@ -1,6 +1,5 @@
-// ==========================================
-// CÁC BIẾN HỆ THỐNG KÝ ỨC (MEMORY SYSTEM)
-// ==========================================
+
+// biến hệ thống
 let dustParticles = [];
 let numDust = 80;
 let fontSys = 'Courier New';
@@ -11,9 +10,7 @@ let chap1BgX = 50;
 let chap1BgY = 50;
 
 let currentPhase = "LOADING_SCREEN";
-// ==========================================
-// BIẾN LOADING SCREEN
-// ==========================================
+// biến loading scrn
 let loadingTimer = 0;
 let loadingProgress = 0;
 let loadingDone = false;
@@ -32,9 +29,7 @@ let tracePoints = [];
 let recallLevel = 0, isDistorted = false, isFullyRecalled = false; 
 
 
-// ==========================================
-// SOUND SYSTEM - dùng audio từ HTML
-// ==========================================
+// biến sound
 let soundMuted = false;
 let tapeTriedToPlay = false;
 let bgSoundStarted = false;
@@ -46,34 +41,23 @@ let c1SuccessPlayed = false;
 let c3BuriedSuccessPlayed = false;
 let drawingShakeStarted = false;
 
-// ==========================================
-// BIẾN CHO CHƯƠNG 2 & 3
-// ==========================================
+// biến chap2 chap3
 let c2Nodes = [];
 let c2Connections = [];
 let c2ActiveNode = null, c2SisterGlitch = false, c2RejectTimer = 0;
 let c2CurrentThought = "", c2ThoughtTimer = 0, c2BaseTreeDrawn = false;
-
-// Ảnh portrait cho popup node Chapter 2
 let c2Portraits = {};
 let c2PortraitsRequested = false;
 let c2PortraitFailed = {};
-
 let glassShards = [];
 let draggedShard = null;
 let hackerLines = [];
-
-// ==========================================
-// BIẾN TỐI ƯU HÓA HIỆU NĂNG & CYBERWAVE (ANTI-LAG)
-// ==========================================
 let hiddenLayer; 
 let binaryPool = []; 
 let vertBinPool = []; 
-
 let floorGridOffset = 0;
 let floorNumHorizonLines = 15;
 let floorNumVerticalLines = 20;
-
 let transPhase = -1, transOverlayAlpha = 0, transTextAlpha = 0, transTimer = 0;
 let trans2Phase = -1, trans2Alpha = 255, trans2TextAlpha = 0, trans2Timer = 0;
 let trans3Phase = -1, trans3Alpha = 255, trans3TextAlpha = 0, trans3Timer = 0;
@@ -81,9 +65,6 @@ let trans4Phase = -1;
 let trans4Alpha = 255;
 let trans4TextAlpha = 0;
 let trans4Timer = 0;
-// ==========================================
-// BIẾN CHO CHƯƠNG 3
-// ==========================================
 let c3TargetX = 0;
 let c3TargetY = 0;
 let c3Spacing = 25;
@@ -95,7 +76,6 @@ let c3FlashAlpha = 255;
 let c3FallTimer = 0;
 let c3TextAlpha = 0;
 let c3StateTimer = 0;
-
 let c3Items = [];
 let c3FocusItem = null;
 let c3DrawingLayer;
@@ -105,7 +85,6 @@ let c3ImagesRequested = false;
 let c3PhotoFailed = false;
 let c3LetterFailed = false;
 let c3PaperFailed = false;
-
 let c3ActiveItem = null;
 let c3FocusLerp = 0;
 let c3TargetFocusLerp = 0;
@@ -119,10 +98,8 @@ let c3FinalThoughtAlpha = 0;
 let c3FinalThought = "";
 let c3ItemSceneTimer = 0;
 let c3DestroyedItems = [];
-
 let chap4Layer;
 let chap4GirlLayer;
-
 let c4ThoughtSequence = [
   { text: "Everything disappeared again.", hold: 90 },
   { text: "The photographs...", hold: 80 },
@@ -177,16 +154,13 @@ let c4TypedText = "";
 let c4TypedIndex = 0;
 let c4TypingDone = false;
 let c4CanAdvance = false;
-
 let c4Particles = [];
 let c4NumParticles = 70;
 let c4ConnectionRadius = 100;
 let c4HoverRadius = 150;
 let c4MaxConnections = 3;
-
 let c4NetProgress = [];
 let c4MouseProgress = [];
-
 let c4ConstellationActive = false;
 let c4ConstellationAlpha = 0;
 class C4RainDrop {
@@ -262,13 +236,11 @@ function drawChapter4Constellation() {
     return;
   }
 
-  // Ease in tổng thể khi tới câu cuối
   let targetAlpha = c4ConstellationActive ? 1 : 0;
   c4ConstellationAlpha = lerp(c4ConstellationAlpha, targetAlpha, 0.045);
 
   push();
 
-  // 1. CẬP NHẬT VỊ TRÍ
   for (let i = 0; i < c4Particles.length; i++) {
     let p = c4Particles[i];
 
@@ -284,12 +256,10 @@ function drawChapter4Constellation() {
     }
   }
 
-  // 2. VẼ CÁC SỢI CHỈ
   for (let i = 0; i < c4Particles.length; i++) {
     let p1 = c4Particles[i];
     let dMouse1 = dist(p1.x, p1.y, mouseX, mouseY);
 
-    // KẾT NỐI VỚI CHUỘT
     if (dMouse1 < c4HoverRadius && c4ConstellationActive) {
       c4MouseProgress[i] = min(1, c4MouseProgress[i] + 0.12);
     } else {
@@ -318,7 +288,6 @@ function drawChapter4Constellation() {
 
     let currentConnections = 0;
 
-    // KẾT NỐI GIỮA CÁC HẠT VỚI NHAU
     for (let j = i + 1; j < c4Particles.length; j++) {
       let p2 = c4Particles[j];
       let d = dist(p1.x, p1.y, p2.x, p2.y);
@@ -361,7 +330,6 @@ function drawChapter4Constellation() {
     }
   }
 
-  // 3. VẼ BẢN THÂN CÁC HẠT
   noStroke();
   rectMode(CENTER);
 
@@ -382,7 +350,6 @@ function drawChapter4Constellation() {
 
   drawingContext.shadowBlur = 0;
 
-  // trả lại mode an toàn
   rectMode(CORNER);
   imageMode(CORNER);
 
@@ -518,7 +485,6 @@ function startIntroBackgroundSounds() {
 
   fadeInLoopSound("snd-bgmusic", 0.28, 2200);
 
-  // Buzz nhỏ và subtle hơn
   fadeInLoopSound("snd-buzz", 0.015, 3200);
 }
 
@@ -631,7 +597,6 @@ function toggleSoundMute() {
   soundMuted = !soundMuted;
   applyMuteState();
 
-  // Nếu mute thì hạ volume các loop chính ngay lập tức cho chắc
   if (soundMuted) {
     let loopIds = ["snd-tape", "snd-bgmusic", "snd-buzz", "snd-error", "snd-rain", "snd-error-2",
 "snd-drawing-shake"];
@@ -645,9 +610,7 @@ function toggleSoundMute() {
   }
 }
 
-// ==========================================
-// SETUP CHÍNH
-// ==========================================
+// main setup
 function setup() {
   let canvas = createCanvas(800, 600);
   canvas.parent('tv-container');
@@ -659,24 +622,20 @@ paperWrapper = select('#paper-wrapper');
 playTapeOnceOnLoad();
 applyMuteState();
 
-// Ẩn polaroid trong màn hình loading
 if (polaWrapper) {
   polaWrapper.style('display', 'none');
 }
 
-  // Layer background nước cho Chapter 4
 chap4Layer = createDiv('');
 chap4Layer.parent('tv-container');
 chap4Layer.id('chap4-water-layer');
 chap4Layer.style('display', 'none');
 
-// Layer riêng cho girl.png, không dính filter nước và không phụ thuộc imageMode của p5
 chap4GirlLayer = createDiv('');
 chap4GirlLayer.parent('tv-container');
 chap4GirlLayer.id('chap4-girl-layer');
 chap4GirlLayer.style('display', 'none');
 
-// Khởi tạo mưa Chapter 4
 for (let i = 0; i < 400; i++) {
   c4RainDrops.push(new C4RainDrop());
 }
@@ -741,11 +700,8 @@ for (let i = 0; i < 400; i++) {
   loadChapter2PortraitsOnce();
 }
 
-// ==========================================
-// VÒNG LẶP DRAW CHÍNH
-// ==========================================
 function draw() {
-  blendMode(BLEND); // CHỐNG LỖI ĐỨNG MÀN HÌNH DO ÂM BẢN
+  blendMode(BLEND);
   clear(); 
 
   if (currentPhase !== "CHAPTER_4" && currentPhase !== "TRANS_TO_CHAP4") {
@@ -791,15 +747,12 @@ else if (currentPhase === "CHAPTER_4") drawChapter4();
 function drawLoadingScreen() {
   clear();
 
-  // Đảm bảo polaroid chưa hiện trong loading
   if (polaWrapper) {
     polaWrapper.style('display', 'none');
   }
 
-  // Background tối kiểu màn hình tape
   background(5, 6, 9);
 
-  // Gradient nhẹ ở giữa
   drawingContext.shadowBlur = 0;
   let grad = drawingContext.createRadialGradient(
     width / 2,
@@ -815,7 +768,6 @@ function drawLoadingScreen() {
   drawingContext.fillStyle = grad;
   drawingContext.fillRect(0, 0, width, height);
 
-  // Timer loading
   if (!loadingDone && !loadingFadeOut) {
     loadingTimer++;
     loadingProgress = constrain(loadingTimer / 180, 0, 1);
@@ -825,7 +777,6 @@ function drawLoadingScreen() {
     }
   }
 
-  // Ease alpha
   if (!loadingDone) {
     loadingTextAlpha = lerp(loadingTextAlpha, 255, 0.06);
     loadingAdviceAlpha = lerp(loadingAdviceAlpha, 0, 0.08);
@@ -848,7 +799,6 @@ function drawLoadingScreen() {
   let boxW = 620;
   let boxH = 180;
 
-  // Khung chính
   drawingContext.shadowBlur = 22;
   drawingContext.shadowColor = `rgba(255,255,255,${0.18 * (loadingTextAlpha / 255)})`;
 
@@ -859,15 +809,9 @@ function drawLoadingScreen() {
 
   drawingContext.shadowBlur = 0;
 
-  // ==========================================
-// LOADING CONTENT
-// Khi chưa load xong: hiện tape + thanh load
-// Khi load xong: ẩn tape + thanh load
-// ==========================================
 let loadingTxt = "[ TAPE INSERTING ... ]";
 let glitchNow = random() < 0.08;
 
-// Alpha riêng cho phần loading cũ
 let tapeAlpha = loadingDone ? 0 : loadingTextAlpha;
 
 if (!loadingDone) {
@@ -913,9 +857,6 @@ if (!loadingDone) {
   text("[ " + nf(floor(loadingProgress * 100), 3) + "% MEMORY TAPE LOADED ]", boxX, barY + 26);
 }
 
-  // Advice sau khi load xong
-  // Advice sau khi load xong
-// Nằm chính giữa khung
 if (loadingDone) {
   let a = loadingAdviceAlpha;
 
@@ -947,10 +888,8 @@ if (loadingDone) {
 
   pop();
 
-  // VHS noise riêng cho loading
   drawLoadingNoise();
 
-  // Fade out khi bấm Space
   if (loadingFadeOut) {
     noStroke();
     fill(0, loadingFadeAlpha);
@@ -960,7 +899,6 @@ if (loadingDone) {
     if (loadingFadeAlpha >= 255) {
       currentPhase = "PROLOGUE";
 
-      // Hiện lại polaroid intro
       if (polaWrapper) {
         polaWrapper.style('display', 'block');
       }
@@ -974,20 +912,17 @@ function drawLoadingNoise() {
 
   noStroke();
 
-  // hạt nhiễu nhỏ
   for (let i = 0; i < 180; i++) {
     fill(random(150, 255), random(12, 28));
     rect(random(width), random(height), random(1, 3), random(1, 3));
   }
 
-  // scanline ngang
   stroke(255, 255, 255, 18);
   strokeWeight(1);
   for (let y = 0; y < height; y += 4) {
     line(0, y, width, y);
   }
 
-  // vài line glitch ngang
   if (random() < 0.12) {
     noStroke();
     fill(255, 255, 255, random(15, 45));
@@ -996,9 +931,7 @@ function drawLoadingNoise() {
 
   pop();
 }
-// ==========================================
-// PROLOGUE VÀ TRANSITION CHAP 1
-// ==========================================
+
 function drawPrologue() {
   if (polaWrapper) {
     polaOffsetX = lerp(polaOffsetX, (width / 2 - mouseX) * 0.015, 0.03);
@@ -1032,7 +965,6 @@ function drawTransitionTitleBox(txt, alphaVal) {
 
   let a = constrain(alphaVal, 0, 255);
 
-  // Khung giống thought box Chapter 3
   drawingContext.shadowBlur = 18 * (a / 255);
   drawingContext.shadowColor = `rgba(255,255,255,${0.25 * (a / 255)})`;
 
@@ -1043,13 +975,11 @@ function drawTransitionTitleBox(txt, alphaVal) {
 
   drawingContext.shadowBlur = 0;
 
-  // Label nhỏ phía trên
   noStroke();
   fill(180, 180, 190, a * 0.85);
   textSize(11);
   text("[ MEMORY SEQUENCE ]", boxX, boxY - 32);
 
-  // Title chính + glitch nhẹ
   let glitchNow = random() < 0.08;
 
   textSize(24);
@@ -1076,19 +1006,15 @@ function drawTransitionTitleBox(txt, alphaVal) {
 }
 
 function drawEchoTransition() {
-  // 1. VẼ CHAP 1 Ở PHÍA SAU
-  // Vì paper-wrapper và bg chap1 đã được set sẵn trong keydown,
-  // ở đây ta vẽ phần recall phía sau, rồi phủ transition lên trên.
+
   push();
   drawRecallPhase();
   pop();
 
-  // 2. TÍNH ALPHA CHO OVERLAY THEO EASE IN/OUT
   let overlayAlpha = 0;
   let titleAlpha = 0;
 
   if (transPhase === 0) {
-    // Màn đen phủ full, title fade in
     overlayAlpha = 210;
     transTextAlpha += 4;
 
@@ -1102,7 +1028,6 @@ function drawEchoTransition() {
   }
 
   else if (transPhase === 1) {
-    // Giữ title một lúc
     overlayAlpha = 210;
     titleAlpha = 255;
     transTimer++;
@@ -1113,7 +1038,6 @@ function drawEchoTransition() {
   }
 
   else if (transPhase === 2) {
-    // Title fade out, overlay fade out để reveal Chap 1
     transTextAlpha -= 4;
     transOverlayAlpha -= 5;
 
@@ -1135,21 +1059,17 @@ function drawEchoTransition() {
     return;
   }
 
-  // 3. VẼ LỚP PHỦ TRANSITION LÊN TRÊN CHAP 1
   noStroke();
   fill(0, 0, 0, overlayAlpha);
   rect(0, 0, width, height);
 
-  // 4. VẼ TITLE BOX
   if (titleAlpha > 0) {
     let txt = "Chapter 1: The Distorted Memory";
     drawTransitionTitleBox(txt, titleAlpha);
   }
 }
 
-// ==========================================
-// CHƯƠNG 1 (RECALL)
-// ==========================================
+// chap1
 function drawRecallPhase() {
   if (isDistorted && !isFullyRecalled && frameCount % 8 < 2) { background(100, 0, 0, 40); }
 
@@ -1295,23 +1215,18 @@ function drawRecallUI() {
   let fillWidth = map(recallLevel, 0, 100, 0, barWidth); rect(barX, barY, fillWidth, barHeight);
 }
 
-// ==========================================
-// CHUYỂN TIẾP CHAP 1 -> CHAP 2
-// ==========================================
+// transition c1-c2
+
 function drawTransitionToChap2() {
-  // 1. VẼ CHAP 2 Ở PHÍA SAU
-  // Lúc này currentPhase vẫn là TRANS_TO_CHAP2,
-  // nhưng ta vẽ nội dung Chap 2 trước, rồi phủ transition lên trên.
+
   push();
   drawChapter2();
   pop();
 
-  // 2. TÍNH ALPHA CHO OVERLAY THEO EASE IN/OUT
   let overlayAlpha = 0;
   let titleAlpha = 0;
 
   if (trans2Phase === 0) {
-    // Màn đen đang phủ full, title fade in
     overlayAlpha = 210;
     trans2TextAlpha += 4;
 
@@ -1325,7 +1240,6 @@ function drawTransitionToChap2() {
   }
 
   else if (trans2Phase === 1) {
-    // Giữ title một lúc
     overlayAlpha = 210;
     titleAlpha = 255;
     trans2Timer++;
@@ -1336,7 +1250,6 @@ function drawTransitionToChap2() {
   }
 
   else if (trans2Phase === 2) {
-    // Title fade out, overlay cũng fade out để reveal Chap 2
     trans2TextAlpha -= 4;
     trans2Alpha -= 5;
 
@@ -1358,21 +1271,17 @@ function drawTransitionToChap2() {
     return;
   }
 
-  // 3. VẼ LỚP PHỦ TRANSITION LÊN TRÊN CHAP 2
   noStroke();
   fill(0, 0, 0, overlayAlpha);
   rect(0, 0, width, height);
 
-  // 4. VẼ TITLE BOX
   if (titleAlpha > 0) {
     let txt = "Chapter 2: The Missing Branch";
     drawTransitionTitleBox(txt, titleAlpha);
   }
 }
 
-// ==========================================
-// CHƯƠNG 2: FOLLOWING
-// ==========================================
+// Chap 2
 function loadChapter2PortraitsOnce() {
   if (c2PortraitsRequested) return;
   c2PortraitsRequested = true;
@@ -1431,22 +1340,18 @@ function drawC2NodePopup(n) {
   textAlign(CENTER, CENTER);
   textFont(fontSys);
 
-  // Ease in/out: scale nhỏ lên lớn + fade
   translate(boxX, boxY);
   scale(lerp(0.86, 1.0, t));
 
   drawingContext.globalAlpha = t;
 
-  // Dây nối nhỏ từ node lên popup
   drawingContext.shadowBlur = 8;
   drawingContext.shadowColor = 'rgba(90, 65, 35, 0.35)';
   stroke(130, 95, 55, 120 * t);
   strokeWeight(1);
   line(n.x - boxX, n.y - 14 - boxY, 0, boxH / 2);
 
-  // ===============================
-  // POPUP STYLE GIẤY CŨ
-  // ===============================
+
   drawingContext.shadowBlur = 20;
   drawingContext.shadowColor = 'rgba(40, 25, 10, 0.45)';
 
@@ -1455,23 +1360,18 @@ function drawC2NodePopup(n) {
   strokeWeight(1.4);
   rect(0, 0, boxW, boxH, 8);
 
-  // Lớp giấy hơi sờn / viền trong
   drawingContext.shadowBlur = 0;
   noFill();
   stroke(255, 245, 210, 70);
   strokeWeight(1);
   rect(0, 0, boxW - 8, boxH - 8, 6);
 
-  // Vài vệt texture giấy cũ
   noStroke();
   for (let i = 0; i < 10; i++) {
     fill(90, 60, 35, 10);
     circle(random(-boxW / 2 + 8, boxW / 2 - 8), random(-boxH / 2 + 8, boxH / 2 - 8), random(1, 3));
   }
 
-  // ===============================
-  // KHUNG ẢNH BÊN TRONG
-  // ===============================
   let imgFrameW = 94;
   let imgFrameH = 104;
   let imgFrameY = -22;
@@ -1484,7 +1384,6 @@ function drawC2NodePopup(n) {
   strokeWeight(1.2);
   rect(0, imgFrameY, imgFrameW, imgFrameH, 4);
 
-  // Ảnh sát với khung trong hơn
   let imgBoxW = imgFrameW - 4;
   let imgBoxH = imgFrameH - 4;
 
@@ -1496,7 +1395,6 @@ function drawC2NodePopup(n) {
 
     let drawW, drawH;
 
-    // contain: ảnh không méo, nhưng sát khung nhất có thể
     if (imgRatio > boxRatio) {
       drawW = imgBoxW;
       drawH = drawW / imgRatio;
@@ -1517,7 +1415,6 @@ function drawC2NodePopup(n) {
     }
   }
 
-  // Tên nhân vật
   drawingContext.shadowBlur = 8;
   drawingContext.shadowColor = 'rgba(255, 245, 210, 0.55)';
   fill(55, 36, 22, 255);
@@ -1525,7 +1422,6 @@ function drawC2NodePopup(n) {
   textStyle(BOLD);
   text(n.label, 0, 48);
 
-  // Label nhỏ
   drawingContext.shadowBlur = 0;
   fill(95, 67, 42, 210);
   textSize(9);
@@ -1582,7 +1478,6 @@ function drawChapter2() {
 
   let isHover = dist(mouseX, mouseY, n.x, n.y) < 25;
 
-  // BẮT BUỘC: khởi tạo popupLerp nếu node chưa có
   if (n.popupLerp === undefined) {
     n.popupLerp = 0;
   }
@@ -1655,9 +1550,7 @@ function drawChapter2() {
   textStyle(NORMAL); drawingContext.shadowBlur = 0; pop(); 
 }
 
-// ==========================================
-// VỠ MÀN HÌNH (SHATTERED GLASS PHASE)
-// ==========================================
+// shattered glass
 function initGlassShards() {
   glassShards = [];
   for(let i = 0; i < 30; i++) {
@@ -1729,9 +1622,7 @@ function drawShatteredThoughtBoxInHiddenLayer() {
   let boxW = 620;
   let boxH = 150;
 
-  // ===============================
-  // KHUNG SUY NGHĨ ẨN TRONG GLASS
-  // ===============================
+  // thought behind shattered glass
   pg.drawingContext.shadowBlur = 18;
   pg.drawingContext.shadowColor = 'rgba(255, 255, 255, 0.15)';
   pg.fill(8, 10, 14, 235);
@@ -1742,13 +1633,11 @@ function drawShatteredThoughtBoxInHiddenLayer() {
   pg.drawingContext.shadowBlur = 0;
   pg.noStroke();
 
-  // Label nhỏ
   pg.fill(180, 180, 190, 220);
   pg.textSize(11);
   pg.textStyle(NORMAL);
   pg.text("[ INTERNAL THOUGHT ]", boxX, boxY - 52);
 
-  // Nội dung suy nghĩ, căn giữa
   let line1 = "Why were they so determined to erase her from this family?";
   let line2 = "What could she possibly have done to deserve such cruelty?";
 
@@ -1761,7 +1650,6 @@ function drawShatteredThoughtBoxInHiddenLayer() {
   let lineGap = 25;
   let thoughtY = boxY - 8;
 
-  // Glitch đỏ/xanh
   if (frameCount % 6 < 3) {
     pg.drawingContext.shadowBlur = 0;
 
@@ -1774,7 +1662,6 @@ function drawShatteredThoughtBoxInHiddenLayer() {
     pg.text(glitchLine2, boxX + 1.5, thoughtY + lineGap / 2);
   }
 
-  // Text chính
   pg.drawingContext.shadowBlur = 10;
   pg.drawingContext.shadowColor = 'rgba(255, 255, 255, 0.35)';
   pg.fill(235);
@@ -1784,7 +1671,6 @@ function drawShatteredThoughtBoxInHiddenLayer() {
   pg.drawingContext.shadowBlur = 0;
   pg.textStyle(NORMAL);
 
-  // Space to continue cũng nằm trong glass
   let blink = map(sin(frameCount * 0.08), -1, 1, 120, 255);
 
   pg.textSize(13);
@@ -1870,23 +1756,16 @@ function drawShattered() {
   }
 }
 
-// ==========================================
-// CHUYỂN TIẾP CHAP 3 VÀ CHƯƠNG 3
-// ==========================================
+// transition c2-c3
 function drawTransitionToChap3() {
-  // 1. VẼ CHAP 3 Ở PHÍA SAU
-  // Chapter 3 đã init sẵn trong keydown,
-  // nên ở đây chỉ cần vẽ nó rồi phủ transition lên trên.
   push();
   drawChapter3();
   pop();
 
-  // 2. TÍNH ALPHA CHO OVERLAY THEO EASE IN/OUT
   let overlayAlpha = 0;
   let titleAlpha = 0;
 
   if (trans3Phase === 0) {
-    // Màn đen phủ full, title fade in
     overlayAlpha = 210;
     trans3TextAlpha += 4;
 
@@ -1900,7 +1779,6 @@ function drawTransitionToChap3() {
   }
 
   else if (trans3Phase === 1) {
-    // Giữ title một lúc
     overlayAlpha = 210;
     titleAlpha = 255;
     trans3Timer++;
@@ -1911,7 +1789,6 @@ function drawTransitionToChap3() {
   }
 
   else if (trans3Phase === 2) {
-    // Title fade out, overlay fade out để reveal Chap 3
     trans3TextAlpha -= 4;
     trans3Alpha -= 5;
 
@@ -1933,12 +1810,10 @@ function drawTransitionToChap3() {
     return;
   }
 
-  // 3. VẼ LỚP PHỦ TRANSITION LÊN TRÊN CHAP 3
   noStroke();
   fill(0, 0, 0, overlayAlpha);
   rect(0, 0, width, height);
 
-  // 4. VẼ TITLE BOX
   if (titleAlpha > 0) {
     let txt = "Chapter 3: Where Things Were Buried";
     drawTransitionTitleBox(txt, titleAlpha);
@@ -1981,7 +1856,6 @@ c3DestroyedItems = [];
 }
 
 function drawTransitionToChap4() {
-  // Vẽ Chap 4 ở phía sau
   push();
   drawChapter4();
   pop();
@@ -2093,7 +1967,7 @@ function drawChapter3() {
   let tv = document.getElementById('tv-container');
   if (tv) {
     tv.style.backgroundImage = "url('image/chap3/bg.png')";
-    tv.style.backgroundSize = "115% 115%";
+    tv.style.backgroundSize = "100% 100%";
     tv.style.backgroundPosition = "50% 50%";
     tv.style.backgroundRepeat = "no-repeat";
   }
@@ -2143,26 +2017,21 @@ function drawChapter3() {
   if (c3State === 0 && c3TargetAlpha > 1) {
     let nT = noise(c3TargetX * 0.02, c3TargetY * 0.02, frameCount * 0.005);
     let nxT = c3TargetX + map(noise(c3TargetX, c3TargetY, 1), 0, 1, -20, 20) * nT; let nyT = c3TargetY + map(noise(c3TargetX, c3TargetY, 2), 0, 1, -20, 20) * nT;
-    // BURIED ITEM - màu hồng/cyan nổi hơn trên nền xanh
 drawingContext.shadowBlur = 28;
 drawingContext.shadowColor = `rgba(255, 0, 180, ${c3TargetAlpha / 255})`;
 
-// Chấm target to hơn
 noStroke();
 fill(255, 0, 180, c3TargetAlpha);
 circle(nxT, nyT, 16);
 
-// Lõi trắng ở giữa để dễ bắt mắt
 fill(255, 255, 255, c3TargetAlpha);
 circle(nxT, nyT, 6);
 
-// Vòng cyan ngoài
 noFill();
 stroke(0, 255, 255, c3TargetAlpha * 0.85);
 strokeWeight(2.5);
 circle(nxT, nyT, 34);
 
-// Vòng hồng đứt nhịp nhẹ
 stroke(255, 0, 180, c3TargetAlpha * 0.55);
 strokeWeight(1.5);
 circle(nxT, nyT, 46);
@@ -2289,13 +2158,10 @@ function updateChapter4ThoughtSequence() {
 }
 
 function resetExperienceToLoading() {
-  // Dừng các layer nước Chap 4
   hideChapter4WaterLayer();
 
-  // Reset phase
   currentPhase = "LOADING_SCREEN";
 
-  // Reset loading
   loadingTimer = 0;
   loadingProgress = 0;
   loadingDone = false;
@@ -2304,7 +2170,6 @@ function resetExperienceToLoading() {
   loadingFadeOut = false;
   loadingFadeAlpha = 0;
 
-  // Reset intro
   if (polaWrapper) {
     polaWrapper.style('display', 'none');
   }
@@ -2323,13 +2188,11 @@ function resetExperienceToLoading() {
     tv.style.backgroundColor = "";
   }
 
-  // Reset chapter 1
   tracePoints = [];
   recallLevel = 0;
   isDistorted = false;
   isFullyRecalled = false;
 
-  // Reset chapter 2
   c2Connections = [];
   c2ActiveNode = null;
   c2SisterGlitch = false;
@@ -2339,7 +2202,6 @@ function resetExperienceToLoading() {
   c2BaseTreeDrawn = false;
   c2TreeLayer = createGraphics(width, height);
 
-  // Reset chapter 3
   c3State = 0;
   c3ShatterPieces = [];
   c3ShatteringItem = null;
@@ -2352,7 +2214,6 @@ function resetExperienceToLoading() {
   c3FocusLerp = 0;
   c3TargetFocusLerp = 0;
 
-  // Reset chapter 4
   c4ThoughtIndex = 0;
   c4TypedText = "";
   c4TypedIndex = 0;
@@ -2362,7 +2223,6 @@ function resetExperienceToLoading() {
   c4ConstellationAlpha = 0;
   initChapter4Constellation();
 
-  // Cursor bình thường
   cursor(ARROW);
 }
 
@@ -2373,7 +2233,7 @@ function drawChapter4ThoughtBox() {
   if (!entry) return;
 
   let boxX = width / 2;
-  let boxY = 128;   // chỉnh thấp xuống ở đây
+  let boxY = 128;
   let boxW = 660;
   let boxH = 110;
 
@@ -2382,7 +2242,6 @@ function drawChapter4ThoughtBox() {
   textAlign(CENTER, CENTER);
   textFont(fontSys);
 
-  // Khung ngoài đứng yên
   drawingContext.shadowBlur = 18;
   drawingContext.shadowColor = 'rgba(255,255,255,0.22)';
 
@@ -2393,13 +2252,11 @@ function drawChapter4ThoughtBox() {
 
   drawingContext.shadowBlur = 0;
 
-  // Label nhỏ
   noStroke();
   fill(180, 180, 190, 220);
   textSize(11);
   text("[ INTERNAL MONOLOGUE ]", boxX, boxY - 32);
 
-  // Text chính kiểu typewriter
   let glitchNow = random() < 0.05 && !entry.pause && c4TypingDone;
 
   textSize(18);
@@ -2422,7 +2279,6 @@ function drawChapter4ThoughtBox() {
   drawingContext.shadowBlur = 0;
   textStyle(NORMAL);
 
-  // SPACE TO CONTINUE / X TO RESTART
 if (c4TypingDone) {
   let pressAlpha = map(sin(frameCount * 0.08), -1, 1, 110, 255);
   fill(200, pressAlpha);
@@ -2443,18 +2299,14 @@ function drawChapter4() {
 
   showChapter4WaterLayer();
 
-  // Overlay tối nhẹ
   noStroke();
   fill(0, 0, 0, 45);
   rect(0, 0, width, height);
 
-  // Mưa
 drawChapter4Rain();
 
-// Constellation hiện ở câu cuối
 drawChapter4Constellation();
 
-// Khung độc thoại phía trên
 drawChapter4ThoughtBox();
 }
 
@@ -2475,7 +2327,6 @@ function updateChapter4Typing() {
   let fullText = entry.pause ? "..." : entry.text;
 
   if (!c4TypingDone) {
-    // tốc độ gõ chữ
     if (frameCount % 2 === 0) {
       c4TypedIndex++;
       c4TypedText = fullText.substring(0, c4TypedIndex);
@@ -2495,7 +2346,6 @@ function handleChapter4Space() {
 
   let fullText = entry.pause ? "..." : entry.text;
 
-  // Nếu đang gõ dở -> bấm space để hiện hết câu luôn
   if (!c4TypingDone) {
     c4TypedText = fullText;
     c4TypedIndex = fullText.length;
@@ -2504,12 +2354,10 @@ function handleChapter4Space() {
     return;
   }
 
-  // Nếu đã gõ xong -> bấm space để qua câu kế
   if (c4CanAdvance) {
   if (c4ThoughtIndex < c4ThoughtSequence.length - 1) {
     c4ThoughtIndex++;
 
-    // Khi vừa bước tới câu cuối cùng, bật constellation
     if (c4ThoughtIndex === c4ThoughtSequence.length - 1) {
       c4ConstellationActive = true;
     }
@@ -2566,13 +2414,11 @@ function initChapter3Items() {
 
   c3DrawingLayer = createGraphics(600, 450);
 
-  // Nền drawing dùng paper.png từ Chapter 1 nếu đã load được
   if (paperImg && paperImg.width > 1 && paperImg.height > 1) {
     c3DrawingLayer.image(paperImg, 0, 0, 600, 450);
   } else {
     c3DrawingLayer.background(245, 238, 220);
 
-    // texture giấy cũ dự phòng
     c3DrawingLayer.noStroke();
     for (let i = 0; i < 120; i++) {
       c3DrawingLayer.fill(90, random(8, 22));
@@ -2580,7 +2426,6 @@ function initChapter3Items() {
     }
   }
 
-  // Ghép lại các TV gia đình theo đúng thứ tự đã được random ở Chapter 1
   let dad = document.getElementById('img-dad');
   let mom = document.getElementById('img-mom');
   let girl = document.getElementById('img-girl');
@@ -2600,8 +2445,6 @@ function initChapter3Items() {
   .filter(item => item.el)
   .sort((a, b) => a.col - b.col);
 
-// Ghép lại family đúng như grid của Chapter 1:
-// paper-wrapper: 600x450, padding 30px, grid 4 cột, 1 hàng
 let paperW = 600;
 let paperH = 450;
 let padding = 30;
@@ -2627,7 +2470,6 @@ for (let i = 0; i < fam.length; i++) {
 
       let drawW, drawH;
 
-      // object-fit: contain giống CSS .family-img
       if (imgRatio > cellRatio) {
         drawW = colW;
         drawH = drawW / imgRatio;
@@ -2642,7 +2484,6 @@ for (let i = 0; i < fam.length; i++) {
       let imgX = cellX + (colW - drawW) / 2;
       let imgY = cellY + (rowH - drawH) / 2;
 
-      // opacity 0.6 giống .family-img trong CSS
       c3DrawingLayer.push();
       c3DrawingLayer.tint(255, 153);
       c3DrawingLayer.drawingContext.drawImage(
@@ -2660,7 +2501,6 @@ for (let i = 0; i < fam.length; i++) {
   }
 }
 
-  // Vẽ lại nét trace từ Chapter 1 lên trên paper
   c3DrawingLayer.stroke(45, 45, 45, 210);
   c3DrawingLayer.strokeWeight(3);
   c3DrawingLayer.noFill();
@@ -2748,7 +2588,6 @@ function drawC3ItemLerped(item, lerpVal) {
     !c3ShatterDone &&
     appear > 0.9;
 
-  // hover ease in/out
   item.hoverLerp += ((isHover ? 1 : 0) - item.hoverLerp) * 0.16;
 
   let hoverScale = lerp(1.0, 1.08, item.hoverLerp);
@@ -2756,7 +2595,6 @@ function drawC3ItemLerped(item, lerpVal) {
   let curX = lerp(item.x, width / 2, lerpVal);
   let curY = lerp(item.y + 18 * (1 - appear), height / 2 - 65, lerpVal);
 
-  // item xuất hiện bằng scale nhỏ -> scale thật
   let appearScale = lerp(0.86, 1.0, easeOutCubic(appear));
   let curScale = lerp(hoverScale * appearScale, 1.9, lerpVal);
   let curRot = lerp(item.rot, 0, lerpVal);
@@ -2910,22 +2748,18 @@ function drawC3FinalThoughtCenter() {
   textFont(fontSys);
   rectMode(CENTER);
 
-  // overlay tối nhẹ để gom mắt vào phần thought
   noStroke();
   fill(0, 0, 0, 170);
   rect(width / 2, height / 2, width, height);
 
-  // glitch nhẹ
   let glitchNow = (frameCount % 12 < 3) || random() < 0.06;
 
-  // khung text ẩn nhẹ
   fill(8, 10, 14, 170);
   stroke(255, 255, 255, 45);
   strokeWeight(1);
   rect(cx, cy, 620, 150, 8);
 
 
-  // final thought chính giữa
   textSize(20);
   textStyle(ITALIC);
   textLeading(30);
@@ -2946,7 +2780,6 @@ function drawC3FinalThoughtCenter() {
 
   textStyle(NORMAL);
 
-  // dòng space continue bên dưới
   let pressAlpha = map(sin(frameCount * 0.08), -1, 1, 90, 255) * (c3FinalThoughtAlpha / 255);
 
   drawingContext.shadowBlur = 12;
@@ -2963,7 +2796,6 @@ function startC3ItemShatter(item) {
   c3ShatteringItem = item;
   c3IsShattering = true;
 
-  // Chưa hiện final thought cho tới khi cả 3 item đều bị phá
   c3ShatterDone = false;
   c3FinalThoughtAlpha = 0;
 
@@ -2997,7 +2829,6 @@ let pieceH = item.h / rows;
       let localX = -item.w / 2 + gx * pieceW + pieceW / 2;
       let localY = -item.h / 2 + gy * pieceH + pieceH / 2;
 
-      // vị trí sau khi tính xoay nhẹ của item
       let ca = cos(item.rot);
       let sa = sin(item.rot);
       let worldX = item.x + localX * ca - localY * sa;
@@ -3090,7 +2921,6 @@ function updateAndDrawC3ShatterPieces() {
     c3ShatteringItem = null;
     c3ShatterPieces = [];
 
-    // Chỉ hiện final thought sau khi cả 3 item đều đã tan biến
     if (c3DestroyedItems.length >= 3) {
       c3ShatterDone = true;
     } else {
@@ -3117,7 +2947,6 @@ function drawChapter3ItemScene() {
   textAlign(CENTER, CENTER);
   textFont(fontSys);
 
-  // Title chính: style cũ + glow/glitch nhẹ
   let titleTxt = '[ BURIED MEMORIES UNCOVERED ]';
   let titleY = 78;
   let isGlitch = random() < 0.08;
@@ -3145,22 +2974,18 @@ function drawChapter3ItemScene() {
     text('[ Click an item to examine ]', width / 2, 104);
   }
 
-  // Cho từng item xuất hiện tự nhiên, không pop up đột ngột
   for (let item of c3Items) {
   if (item.appearLerp === undefined) item.appearLerp = 0;
 
   let targetAppear = c3ItemSceneTimer > item.appearDelay ? 1 : 0;
 
-  // chậm hơn một chút để item không bật lên quá đột ngột
   item.appearLerp += (targetAppear - item.appearLerp) * 0.055;
 
-  // chặn overshoot / rung nhỏ
   if (abs(1 - item.appearLerp) < 0.003 && targetAppear === 1) {
     item.appearLerp = 1;
   }
 }
 
-  // Ease in/out focus cũ vẫn giữ
   c3FocusLerp += (c3TargetFocusLerp - c3FocusLerp) * 0.15;
 
   if (c3TargetFocusLerp === 0 && c3FocusLerp < 0.01) {
@@ -3172,7 +2997,6 @@ function drawChapter3ItemScene() {
 
 if (c3Items && c3Items.length > 0 && !c3ShatterDone) {
   for (let item of c3Items) {
-    // Item đã bị phá thì không hiện lại nữa
     if (c3DestroyedItems.includes(item.id)) continue;
 
     if (item === c3ActiveItem || item === c3ShatteringItem) continue;
@@ -3189,7 +3013,6 @@ if (c3Items && c3Items.length > 0 && !c3ShatterDone) {
   }
 }
 
-  // overlay tối khi đang focus
   if (c3FocusLerp > 0 && !c3IsShattering) {
     noStroke();
     fill(0, 180 * c3FocusLerp);
@@ -3201,11 +3024,8 @@ if (c3Items && c3Items.length > 0 && !c3ShatterDone) {
     drawC3FocusOverlayOldStyle(c3ActiveItem, c3FocusLerp);
   }
 
-  // vẽ các mảnh vỡ
 updateAndDrawC3ShatterPieces();
 
-// sau khi phá đủ 3 items và mảnh tan hết,
-// hiện final thought ở giữa màn hình
 if (c3ShatterDone) {
   drawC3FinalThoughtCenter();
   cursor(ARROW);
@@ -3223,9 +3043,7 @@ if (c3IsShattering) {
 }
 }
 
-// ==========================================
-// CÁC HÀM TƯƠNG TÁC CHUỘT
-// ==========================================
+
 function getThoughtForConnection(n1, n2) {
   let ids = [n1.id, n2.id].sort(); let pair = ids.join('-');
   if (pair === 'Father-Mother') return '"A perfect marriage... or so everyone thought."';
@@ -3239,7 +3057,6 @@ function getThoughtForConnection(n1, n2) {
 }
 
 function mousePressed() {
-  // Toggle sound ở góc phải trên, dưới SYS_TRACE
 let soundX = width - 60;
 let soundY = 88;
 
@@ -3324,9 +3141,7 @@ function mouseReleased() {
   if (currentPhase === "SHATTERED" && draggedShard) draggedShard = null;
 }
 
-// ==========================================
-// TẠO CÂY ĐỘNG (GROWTH BEZIER)
-// ==========================================
+
 function growGuidedBranches() {
   c2TreeLayer.push();
   for (let conn of c2Connections) {
@@ -3356,9 +3171,7 @@ function growGuidedBranches() {
   c2TreeLayer.pop();
 }
 
-// ==========================================
-// KỸ THUẬT NHIỄU, BỤI, CÂY TĨNH, BÀN PHÍM
-// ==========================================
+
 window.addEventListener("keydown", function(event) {
   if (event.key === "x" || event.key === "X") {
   if (
@@ -3401,7 +3214,6 @@ window.addEventListener("keydown", function(event) {
 
   if (polaWrapper) polaWrapper.style('display', 'none');
 
-  // Set sẵn Chap 1 ở phía sau transition
   let paper = document.getElementById('paper-wrapper');
   if (paper) {
     paper.style.display = 'grid';
@@ -3416,7 +3228,6 @@ window.addEventListener("keydown", function(event) {
     tv.style.backgroundRepeat = "no-repeat";
   }
 
-  // Reset transition overlay
   transOverlayAlpha = 255;
   transTextAlpha = 0;
   transPhase = 0;
@@ -3430,7 +3241,6 @@ window.addEventListener("keydown", function(event) {
   let paper = document.getElementById('paper-wrapper');
   if (paper) paper.style.display = 'none';
 
-  // Set sẵn nội dung Chap 2 ở phía sau transition
   let tv = document.getElementById('tv-container');
   if (tv) {
     tv.style.backgroundImage = "url('image/chap2/bg.png')";
@@ -3439,7 +3249,6 @@ window.addEventListener("keydown", function(event) {
     tv.style.backgroundRepeat = "no-repeat";
   }
 
-  // Reset transition overlay
   trans2Phase = 0;
   trans2Alpha = 255;
   trans2TextAlpha = 0;
@@ -3452,7 +3261,6 @@ window.addEventListener("keydown", function(event) {
 
   currentPhase = "TRANS_TO_CHAP3";
 
-  // Set sẵn Chap 3 ở phía sau transition
   let tv = document.getElementById('tv-container');
   if (tv) {
     tv.style.backgroundImage = "url('image/chap3/bg.png')";
@@ -3463,7 +3271,6 @@ window.addEventListener("keydown", function(event) {
 
   initChapter3();
 
-  // Reset transition overlay
   trans3Phase = 0;
   trans3Alpha = 255;
   trans3TextAlpha = 0;
@@ -3571,7 +3378,7 @@ function drawSoundToggleUI() {
     mouseY > soundY - 4 &&
     mouseY < soundY + 18;
 
-  let label = soundMuted ? "[ 🔇 SOUND OFF ]" : "[ 🔊 SOUND ON ]";
+  let label = soundMuted ? "[ SOUND OFF ]" : "[ SOUND ON ]";
 
   if (isHover) {
     drawingContext.shadowBlur = 10;
@@ -3637,4 +3444,3 @@ function generateBareStick(pg, len, stickDepth = 0) {
   if (stickDepth > 1) return; pg.push(); pg.translate(0, 0); let theta = random(-PI * 0.08, PI * 0.08); pg.rotate(theta); let sw = map(len, sminLen, smaxLen, 0.5, 1.5); pg.strokeWeight(sw);
   pg.stroke(100, 150); pg.line(0, 0, 0, -len); pg.translate(0, -len); if (len > sminLen * 2.5) generateBareStick(pg, len * 0.6, stickDepth + 1); pg.pop();
 }
-// --- END OF FILE ---
