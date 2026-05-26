@@ -11,15 +11,12 @@ body {
   position: relative;
   width: 800px; height: 600px;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 255, 255, 0.03);
-  
-  /* BACKGROUND CHO INTRO */
   background-image: url('image/home/bg.png');
   background-size: 800px 600px;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-/* CONTAINER CHO CỤM POLAROID */
 .pola-wrapper {
   position: absolute;
   top: 70%; 
@@ -79,7 +76,6 @@ canvas {
   z-index: 1;
 }
 
-/* LỚP PHỦ SỌC VHS ĐÈ LÊN TRÊN POLAROID */
 #tv-container::after {
   content: "";
   position: absolute;
@@ -121,7 +117,7 @@ canvas {
   display: none; 
   filter: drop-shadow(0 0 25px rgba(0, 0, 0, 0.686));  
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr; /* Ép cứng 1 hàng ngang */
+  grid-template-rows: 1fr;
   padding: 30px; 
   align-items: center;
   justify-items: center;
@@ -131,19 +127,16 @@ canvas {
   width: 100%;
   height: 100%;
   object-fit: contain; 
-  opacity: 0.6; /* Sáng vừa đủ để trace */
-  grid-row: 1; /* CỰC QUAN TRỌNG: Khóa cứng ở hàng 1 chống văng hình */
+  opacity: 0.6;
+  grid-row: 1;
 }
 
 #img-sis {
-  opacity: 0; /* Tàng hình lúc đầu */
-  grid-column: 4; /* Ép cứng ngoài cùng bên phải */
+  opacity: 0;
+  grid-column: 4;
   grid-row: 1; 
 }
 
-/* ==========================================
-   CHAPTER 4 - WATER MEMORY BACKGROUND
-   ========================================== */
 
 #chap4-water-layer {
   position: absolute;
@@ -154,8 +147,6 @@ canvas {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-
-  /* Chỉ để background thôi */
   background-image: url('image/chap4/bg.png');
   background-size: cover;
   background-position: center center;
@@ -178,23 +169,16 @@ canvas {
   background-repeat: no-repeat;
 }
 
-/* MASK SÓNG: giữ nguyên vị trí, chỉ bị filter làm méo */
 #chap4-water-layer::before {
   content: "";
   position: absolute;
   inset: 0;
-
   background-image: url('image/chap4/wave.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
   opacity: 0.5;
   mix-blend-mode: screen;
-
-  /* Chỉ wave.png nhận water filter */
   filter: url(#chap4-water-filter);
-
-  /* KHÔNG animate transform nữa */
   transform: none;
 }
