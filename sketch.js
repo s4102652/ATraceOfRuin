@@ -1069,6 +1069,10 @@ function drawEchoTransition() {
   }
 }
 
+function clearChapter1TraceMemory() {
+  tracePoints = [];
+}
+
 // chap1
 function drawRecallPhase() {
   if (isDistorted && !isFullyRecalled && frameCount % 8 < 2) { background(100, 0, 0, 40); }
@@ -1077,10 +1081,23 @@ function drawRecallPhase() {
   let girl = document.getElementById('img-girl'); let sis = document.getElementById('img-sis');
 
   if (recallLevel >= 100) {
+  if (!isFullyRecalled) {
     isFullyRecalled = true;
-    if (dad) dad.style.opacity = 1; if (mom) mom.style.opacity = 1; if (girl) girl.style.opacity = 1;
-    if (sis) { sis.style.transition = 'opacity 2s ease'; sis.style.opacity = 1; sis.style.filter = 'none'; sis.style.transform = 'none'; }
-  } else if (isDistorted) {
+
+    clearChapter1TraceMemory();
+  }
+
+  if (dad) dad.style.opacity = 1; 
+  if (mom) mom.style.opacity = 1; 
+  if (girl) girl.style.opacity = 1;
+
+  if (sis) { 
+    sis.style.transition = 'opacity 2s ease'; 
+    sis.style.opacity = 1; 
+    sis.style.filter = 'none'; 
+    sis.style.transform = 'none'; 
+  }
+} else if (isDistorted) {
     if (sis) {
       sis.style.transition = 'none'; 
       if (frameCount % 6 < 3) {
@@ -2500,28 +2517,6 @@ for (let i = 0; i < fam.length; i++) {
     }
   }
 }
-
-  c3DrawingLayer.stroke(45, 45, 45, 210);
-  c3DrawingLayer.strokeWeight(3);
-  c3DrawingLayer.noFill();
-
-  if (tracePoints && tracePoints.length > 0) {
-    c3DrawingLayer.beginShape();
-
-    for (let p of tracePoints) {
-      if (p === null) {
-        c3DrawingLayer.endShape();
-        c3DrawingLayer.beginShape();
-      } else {
-        c3DrawingLayer.vertex(
-          p.x - 100 + random(-0.5, 0.5),
-          p.y - 75 + random(-0.5, 0.5)
-        );
-      }
-    }
-
-    c3DrawingLayer.endShape();
-  }
 
   c3Items = [
 {
