@@ -489,9 +489,6 @@ function startIntroBackgroundSounds() {
 }
 
 function playDrawingTraceSound() {
-  if (frameCount - lastDrawingSoundFrame < 6) return;
-
-  lastDrawingSoundFrame = frameCount;
   playOneShotSound("snd-drawing", 0.5);
 }
 
@@ -1114,8 +1111,6 @@ function drawRecallPhase() {
     if (mouseX !== pmouseX || mouseY !== pmouseY) {
       if (mouseX >= 100 && mouseX <= 700 && mouseY >= 75 && mouseY <= 525) {
         tracePoints.push({x: mouseX, y: mouseY});
-
-playDrawingTraceSound();
 
 let validPts = tracePoints.filter(p => p !== null).length;
         recallLevel = min(validPts / 15, 100); 
@@ -3064,7 +3059,17 @@ if (
   toggleSoundMute();
   return;
 }
-    
+
+if (
+  currentPhase === "RECALL_PHASE" &&
+  !isFullyRecalled &&
+  mouseX >= 100 &&
+  mouseX <= 700 &&
+  mouseY >= 75 &&
+  mouseY <= 525
+) {
+  playDrawingTraceSound();
+}   
 
 if (currentPhase === "CHAPTER_3" && c3State === 4) {
   if (c3IsShattering || c3ShatterDone) {
